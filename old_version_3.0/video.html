@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取视频示例</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<h2>点击按钮获取视频</h2>
+
+<!-- 视频元素，初始时不可见 -->
+<video id="myVideo" width="320" height="240" controls style="display:none;">
+    <source id="videoSource" src="" type="video/mp4">
+    您的浏览器不支持视频标签。
+</video>
+
+<!-- 按钮元素 -->
+<button id="getVideoButton">点击我获取视频</button>
+
+<script>
+// 等待文档加载完成
+$(document).ready(function() {
+    // 为按钮点击事件添加事件监听器
+    $("#getVideoButton").click(function() {
+        // 发送AJAX请求到服务器获取视频
+        $.ajax({
+            url: 'http://192.168.84.129:9527/', // 替换为实际的服务器URL
+            type: 'GET',
+            success: function(data) {
+                // 假设服务器返回视频文件的URL
+                var videoUrl = data.videoUrl;
+                $('#videoSource').attr('src', videoUrl);
+                $('#myVideo').show();
+            },
+            error: function() {
+                alert('无法获取视频');
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>
